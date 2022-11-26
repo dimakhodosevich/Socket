@@ -5,6 +5,7 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 public class SocketRunner {
     public static void main(String[] args) {
@@ -27,13 +28,16 @@ public class SocketRunner {
              InputStream inputStream = socket.getInputStream();
              DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
              DataInputStream dataInputStream = new DataInputStream(inputStream);
+             Scanner scanner = new Scanner(System.in)
         ) {
 
-            dataOutputStream.writeUTF("Hello world");
+           while (scanner.hasNextLine()){
+               String requestToServer = scanner.nextLine();
+               dataOutputStream.writeUTF(requestToServer);
 
-            String responseFromServer = dataInputStream.readUTF();
-
-            System.out.println("Response from server: \n" + responseFromServer);
+               String responseFromServer = dataInputStream.readUTF();
+               System.out.println(responseFromServer);
+           }
 
         } catch (IOException e) {
             throw new RuntimeException(e);
