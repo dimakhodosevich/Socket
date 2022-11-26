@@ -11,11 +11,13 @@ public class SocketServerRunner {
 
         try (ServerSocket serverSocket = new ServerSocket(7777);
              Socket socket = serverSocket.accept();
-             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream();
+             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
              DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());) {
 
             System.out.println("Client request: " + dataInputStream.readUTF());
             dataOutputStream.writeUTF("Hello from server!!!");
+
+            System.out.println("Close server. Bye, bye!!!");
 
         } catch (IOException e) {
             throw new RuntimeException(e);

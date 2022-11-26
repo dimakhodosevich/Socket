@@ -16,13 +16,13 @@ public class SocketRunner {
         InetAddress inetAddress = null;
 
         try {
-            inetAddress = Inet4Address.getByName("google.com");
+            inetAddress = Inet4Address.getByName("localhost");
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         }
 
 
-        try (Socket socket = new Socket(inetAddress, 80);
+        try (Socket socket = new Socket(inetAddress, 7777);
              OutputStream outputStream = socket.getOutputStream();
              InputStream inputStream = socket.getInputStream();
              DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
@@ -30,8 +30,10 @@ public class SocketRunner {
         ) {
 
             dataOutputStream.writeUTF("Hello world");
-            byte[] response = dataInputStream.readAllBytes();
-            System.out.println(response.length);
+
+            String responseFromServer = dataInputStream.readUTF();
+
+            System.out.println("Response from server: \n" + responseFromServer);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
