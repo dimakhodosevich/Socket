@@ -17,6 +17,7 @@ public class DatagramServerRunner {
 
             byte[] answer = datagramPacket.getData();
 
+
             System.out.println(new String(answer));
 
         } catch (SocketException e) {
